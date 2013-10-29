@@ -1,4 +1,4 @@
-package com.newrelic.plugins.memcached.instance;
+package com.newrelic.plugins.memcached;
 
 import com.newrelic.metrics.publish.Runner;
 import com.newrelic.metrics.publish.configuration.ConfigurationException;

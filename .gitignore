@@ -2,6 +2,7 @@
 build/
 META-INF/
 bin/
-
-
+config/newrelic.properties
+config/logging.properties
+config/memcached.hosts.json
 
