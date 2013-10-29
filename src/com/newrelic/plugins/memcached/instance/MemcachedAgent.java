@@ -98,35 +98,34 @@ public class MemcachedAgent extends Agent {
             return;
         }
 
-        // TODO: Discuss extending reportMetric to avoid redundancy in null checks and casts (e.g. add convenience methods like 'reportMetricAsLong')
-        // The metrics below are standard and have been for Memcached for a while but we should make this more robust in case the set changes.
-        reportMetric("Rusage/User", "CPU", rusageUserCounter.process(Float.parseFloat(metrics.get("rusage_user"))));
-        reportMetric("Rusage/System", "CPU", rusageSystemCounter.process(Float.parseFloat(metrics.get("rusage_system"))));
-        reportMetric("Connections/Rate", "Connections/Seconds", totalConnectionsCounter.process(Float.parseFloat(metrics.get("total_connections"))));
-        reportMetric("Connections/Current", "Connections", Long.parseLong(metrics.get("curr_connections")));
-        reportMetric("Cmd/Get", "Commands/Seconds", cmdGetCounter.process(Float.parseFloat(metrics.get("cmd_get"))));
-        reportMetric("Cmd/Set", "Commands/Seconds", cmdSetCounter.process(Float.parseFloat(metrics.get("cmd_set"))));
-        reportMetric("Cmd/Flush", "Commands/Seconds", cmdFlushCounter.process(Float.parseFloat(metrics.get("cmd_flush"))));
-        reportMetric("Get/Hits", "Commands/Seconds", getHitsCounter.process(Float.parseFloat(metrics.get("get_hits"))));
-        reportMetric("Get/Misses", "Commands/Seconds", getMissesCounter.process(Float.parseFloat(metrics.get("get_misses"))));
-        reportMetric("Delete/Hits", "Commands/Seconds", deleteHitsCounter.process(Float.parseFloat(metrics.get("delete_hits"))));
-        reportMetric("Delete/Misses", "Commands/Seconds", deleteMissesCounter.process(Float.parseFloat(metrics.get("delete_misses"))));
-        reportMetric("Incr/Hits", "Commands/Seconds", incrHitsCounter.process(Float.parseFloat(metrics.get("incr_hits"))));
-        reportMetric("Incr/Misses", "Commands/Seconds", incrMissesCounter.process(Float.parseFloat(metrics.get("incr_misses"))));
-        reportMetric("Decr/Hits", "Commands/Seconds", decrHitsCounter.process(Float.parseFloat(metrics.get("decr_hits"))));
-        reportMetric("Decr/Misses", "Commands/Seconds", decrMissesCounter.process(Float.parseFloat(metrics.get("decr_misses"))));
-        reportMetric("Cas/Hits", "Commands/Seconds", casHitsCounter.process(Float.parseFloat(metrics.get("cas_hits"))));
-        reportMetric("Cas/Misses", "Commands/Seconds", casMissesCounter.process(Float.parseFloat(metrics.get("cas_misses"))));
-        reportMetric("Cas/Badval", "Commands/Seconds", casBadValCounter.process(Float.parseFloat(metrics.get("cas_badval"))));
-        reportMetric("Memory/Used", "Bytes", Long.parseLong(metrics.get("bytes")));
-        reportMetric("Memory/MaxAvailable", "Bytes", Long.parseLong(metrics.get("limit_maxbytes")));
-        reportMetric("Bytes/Read", "Bytes/Seconds", bytesReadCounter.process(Float.parseFloat(metrics.get("bytes_read"))));
-        reportMetric("Bytes/Written", "Bytes/Seconds", bytesWrittenCounter.process(Float.parseFloat(metrics.get("bytes_written"))));
-        reportMetric("Threads", "Threads", Long.parseLong(metrics.get("threads")));
-        reportMetric("Items/Current", "Items", Long.parseLong(metrics.get("curr_items")));
-        reportMetric("Items/Rate", "Items/Seconds", totalItemsCounter.process(Float.parseFloat(metrics.get("total_items"))));
-        reportMetric("Items/Evictions", "Evictions/Seconds", evictionsCounter.process(Float.parseFloat(metrics.get("evictions"))));
-        reportMetric("Items/Reclaims", "Reclaims/Seconds", reclaimsCounter.process(Float.parseFloat(metrics.get("reclaimed"))));
+        // Using the 'convertToXXXWithoutException helpers in case future versions of Memcached do not support a specific metric
+        reportMetric("Rusage/User", "CPU", rusageUserCounter.process(convertStringToFloatWithoutException(metrics.get("rusage_user"))));
+        reportMetric("Rusage/System", "CPU", rusageSystemCounter.process(convertStringToFloatWithoutException(metrics.get("rusage_system"))));
+        reportMetric("Connections/Rate", "Connections/Seconds", totalConnectionsCounter.process(convertStringToFloatWithoutException(metrics.get("total_connections"))));
+        reportMetric("Connections/Current", "Connections", convertStringToLongWithoutException(metrics.get("curr_connections")));
+        reportMetric("Cmd/Get", "Commands/Seconds", cmdGetCounter.process(convertStringToFloatWithoutException(metrics.get("cmd_get"))));
+        reportMetric("Cmd/Set", "Commands/Seconds", cmdSetCounter.process(convertStringToFloatWithoutException(metrics.get("cmd_set"))));
+        reportMetric("Cmd/Flush", "Commands/Seconds", cmdFlushCounter.process(convertStringToFloatWithoutException(metrics.get("cmd_flush"))));
+        reportMetric("Get/Hits", "Commands/Seconds", getHitsCounter.process(convertStringToFloatWithoutException(metrics.get("get_hits"))));
+        reportMetric("Get/Misses", "Commands/Seconds", getMissesCounter.process(convertStringToFloatWithoutException(metrics.get("get_misses"))));
+        reportMetric("Delete/Hits", "Commands/Seconds", deleteHitsCounter.process(convertStringToFloatWithoutException(metrics.get("delete_hits"))));
+        reportMetric("Delete/Misses", "Commands/Seconds", deleteMissesCounter.process(convertStringToFloatWithoutException(metrics.get("delete_misses"))));
+        reportMetric("Incr/Hits", "Commands/Seconds", incrHitsCounter.process(convertStringToFloatWithoutException(metrics.get("incr_hits"))));
+        reportMetric("Incr/Misses", "Commands/Seconds", incrMissesCounter.process(convertStringToFloatWithoutException(metrics.get("incr_misses"))));
+        reportMetric("Decr/Hits", "Commands/Seconds", decrHitsCounter.process(convertStringToFloatWithoutException(metrics.get("decr_hits"))));
+        reportMetric("Decr/Misses", "Commands/Seconds", decrMissesCounter.process(convertStringToFloatWithoutException(metrics.get("decr_misses"))));
+        reportMetric("Cas/Hits", "Commands/Seconds", casHitsCounter.process(convertStringToFloatWithoutException(metrics.get("cas_hits"))));
+        reportMetric("Cas/Misses", "Commands/Seconds", casMissesCounter.process(convertStringToFloatWithoutException(metrics.get("cas_misses"))));
+        reportMetric("Cas/Badval", "Commands/Seconds", casBadValCounter.process(convertStringToFloatWithoutException(metrics.get("cas_badval"))));
+        reportMetric("Memory/Used", "Bytes", convertStringToLongWithoutException(metrics.get("bytes")));
+        reportMetric("Memory/MaxAvailable", "Bytes", convertStringToLongWithoutException(metrics.get("limit_maxbytes")));
+        reportMetric("Bytes/Read", "Bytes/Seconds", bytesReadCounter.process(convertStringToFloatWithoutException(metrics.get("bytes_read"))));
+        reportMetric("Bytes/Written", "Bytes/Seconds", bytesWrittenCounter.process(convertStringToFloatWithoutException(metrics.get("bytes_written"))));
+        reportMetric("Threads", "Threads", convertStringToLongWithoutException(metrics.get("threads")));
+        reportMetric("Items/Current", "Items", convertStringToLongWithoutException(metrics.get("curr_items")));
+        reportMetric("Items/Rate", "Items/Seconds", totalItemsCounter.process(convertStringToFloatWithoutException(metrics.get("total_items"))));
+        reportMetric("Items/Evictions", "Evictions/Seconds", evictionsCounter.process(convertStringToFloatWithoutException(metrics.get("evictions"))));
+        reportMetric("Items/Reclaims", "Reclaims/Seconds", reclaimsCounter.process(convertStringToFloatWithoutException(metrics.get("reclaimed"))));
     }
 
     private Map<String, String> getMetricsFromMemcached() {
@@ -147,6 +146,26 @@ public class MemcachedAgent extends Agent {
         }
 
         return map;
+    }
+
+    private Number convertStringToLongWithoutException(String number) {
+        try {
+            Number longVal = convertStringToLongWithoutException(number);
+            return longVal;
+        }
+        catch(NumberFormatException nfe) {
+            return null;
+        }
+    }
+
+    private Number convertStringToFloatWithoutException(String number) {
+        try {
+            Number floatVal = convertStringToFloatWithoutException(number);
+            return floatVal;
+        }
+        catch(NumberFormatException nfe) {
+            return null;
+        }
     }
 
     /**
