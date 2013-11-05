@@ -1,4 +1,4 @@
-package com.newrelic.plugins.memcached.instance;
+package com.newrelic.plugins.memcached;
 
 import java.util.Map;
 

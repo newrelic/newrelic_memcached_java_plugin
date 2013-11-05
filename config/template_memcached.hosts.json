@@ -1,7 +1,7 @@
 [
     {
-		"name" : "Localhost",
-		"host" : "localhost",
-		"port" : 11211,
+        "name" : "Localhost",
+        "host" : "localhost",
+        "port" : 11211,
     },
 ]
