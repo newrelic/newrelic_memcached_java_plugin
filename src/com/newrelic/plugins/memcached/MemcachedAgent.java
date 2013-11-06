@@ -112,7 +112,7 @@ public class MemcachedAgent extends Agent {
         reportMetric("System/Summary/Memory/Bytes/MaxAvailable", "bytes", bytesAvailable);
 
         if(bytesAvailable != null && bytesUsed != null && bytesAvailable > 0) {
-            reportMetric("System/Summary/Memory/Percent", "percent", bytesUsed.floatValue() / bytesAvailable);
+            reportMetric("System/Summary/Memory/Percent", "percent", (bytesUsed.floatValue() / bytesAvailable) * 100);
         }
 
         reportMetric("System/Threads", "threads", convertStringToLongWithoutException(metrics.get("threads")));
@@ -150,7 +150,7 @@ public class MemcachedAgent extends Agent {
         reportMetric("CacheUse/Cas/Actions/Badval", "commands/seconds", casBadValCounter.process(casBadVal));
 
         if(casHits != null && casMisses != null && casBadVal != null) {
-            Float casMissesAndBadVal = (casHits > 0 || casMisses > 0 || casBadVal > 0) ? (casMisses + casBadVal) / (casHits + casMisses + casBadVal) : 0;
+            Float casMissesAndBadVal = (casHits > 0 || casMisses > 0 || casBadVal > 0) ? ((casMisses + casBadVal) / (casHits + casMisses + casBadVal)) * 100 : 0;
             reportMetric("CacheUse/Summary/Cas/MissedBadval", "percent", casMissesAndBadVal);
         }
 
@@ -168,7 +168,7 @@ public class MemcachedAgent extends Agent {
         reportMetric(String.format("CacheUse/%s/Actions/Misses", name), "commands/seconds", missCounter.process(misses));
 
         if(hits != null && misses != null) {
-            Float percentMisses = (hits > 0 || misses > 0) ? misses / (hits + misses) : 0;
+            Float percentMisses = (hits > 0 || misses > 0) ? (misses / (hits + misses)) * 100 : 0;
             reportMetric(String.format("CacheUse/Summary/%s/Missed", name), "percent", percentMisses);
         }
     }
