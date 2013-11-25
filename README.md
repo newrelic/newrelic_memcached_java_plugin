@@ -1,10 +1,6 @@
 Memcached Java Plugin for New Relic
 ========================================
 
-Beta Notes
--------------
-This is a beta release of the Memcached plugin, please contact alarson@newrelic.com with any feedback or questions.
-
 Prerequisites
 -------------
 - A New Relic account. Signup for a free account at [http://newrelic.com](http://newrelic.com)
