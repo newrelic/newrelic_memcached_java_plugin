@@ -17,7 +17,7 @@ import com.newrelic.metrics.publish.processors.EpochCounter;
 public class MemcachedAgent extends Agent {
 
     private static final String GUID = "com.newrelic.plugins.memcached";
-    private static final String VERSION = "1.0.0";
+    private static final String VERSION = "1.0.1";
 
     private String name;
     private String host;
@@ -142,12 +142,12 @@ public class MemcachedAgent extends Agent {
         Float decrMisses = convertStringToFloatWithoutException(metrics.get("decr_misses"));
         reportCacheUseMetrics("Decr", decrHits, decrMisses, decrHitsCounter, decrMissesCounter);
 
-        Float casHits = convertStringToFloatWithoutException(metrics.get("cas_hits"));
-        Float casMisses = convertStringToFloatWithoutException(metrics.get("cas_misses"));
-        Float casBadVal = convertStringToFloatWithoutException(metrics.get("cas_badval"));
-        reportMetric("CacheUse/Cas/Actions/Hits", "commands/seconds", casHitsCounter.process(casHits));
-        reportMetric("CacheUse/Cas/Actions/Misses", "commands/seconds", casMissesCounter.process(casMisses));
-        reportMetric("CacheUse/Cas/Actions/Badval", "commands/seconds", casBadValCounter.process(casBadVal));
+        Float casHits = (Float)casHitsCounter.process(convertStringToFloatWithoutException(metrics.get("cas_hits")));
+        Float casMisses = (Float)casMissesCounter.process(convertStringToFloatWithoutException(metrics.get("cas_misses")));
+        Float casBadVal = (Float)casBadValCounter.process(convertStringToFloatWithoutException(metrics.get("cas_badval")));
+        reportMetric("CacheUse/Cas/Actions/Hits", "commands/seconds", casHits);
+        reportMetric("CacheUse/Cas/Actions/Misses", "commands/seconds", casMisses);
+        reportMetric("CacheUse/Cas/Actions/Badval", "commands/seconds", casBadVal);
 
         if(casHits != null && casMisses != null && casBadVal != null) {
             Float casMissesAndBadVal = (casHits > 0 || casMisses > 0 || casBadVal > 0) ? ((casMisses + casBadVal) / (casHits + casMisses + casBadVal)) * 100 : 0;
@@ -164,11 +164,14 @@ public class MemcachedAgent extends Agent {
     }
 
     private void reportCacheUseMetrics(String name, Float hits, Float misses, EpochCounter hitCounter, EpochCounter missCounter) {
-        reportMetric(String.format("CacheUse/%s/Actions/Hits", name), "commands/seconds", hitCounter.process(hits));
-        reportMetric(String.format("CacheUse/%s/Actions/Misses", name), "commands/seconds", missCounter.process(misses));
+        Float processedHits = (Float)hitCounter.process(hits);
+        Float processedMisses = (Float)missCounter.process(misses);
 
-        if(hits != null && misses != null) {
-            Float percentMisses = (hits > 0 || misses > 0) ? (misses / (hits + misses)) * 100 : 0;
+        reportMetric(String.format("CacheUse/%s/Actions/Hits", name), "commands/seconds", processedHits);
+        reportMetric(String.format("CacheUse/%s/Actions/Misses", name), "commands/seconds", processedMisses);
+
+        if(processedHits != null && processedMisses != null) {
+            Float percentMisses = (processedHits > 0 || processedMisses > 0) ? (processedMisses / (processedHits + processedMisses)) * 100 : 0;
             reportMetric(String.format("CacheUse/Summary/%s/Missed", name), "percent", percentMisses);
         }
     }
