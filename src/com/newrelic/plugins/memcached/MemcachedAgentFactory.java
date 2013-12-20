@@ -17,10 +17,15 @@ public class MemcachedAgentFactory extends AgentFactory {
     public Agent createConfiguredAgent(Map<String, Object> properties) {
         String name = (String) properties.get("name");
         String host = (String) properties.get("host");
-        Integer port = ((Long) properties.get("port")).intValue();
+        Object portObj = properties.get("port");
 
-        if(port == null) {
-            port = 11211; // default port for memcached
+        Integer port = null;
+
+        if(portObj != null) {
+            port = ((Long)portObj).intValue();
+        }
+        else {
+            port = 11211; // default port for Memcached
         }
 
         return new MemcachedAgent(name, host, port);
