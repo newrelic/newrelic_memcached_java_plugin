@@ -6,12 +6,6 @@ import com.newrelic.metrics.publish.Agent;
 import com.newrelic.metrics.publish.AgentFactory;
 
 public class MemcachedAgentFactory extends AgentFactory {
-    /**
-     * Construct an Agent Factory based on the default properties file
-     */
-    public MemcachedAgentFactory() {
-        super("memcached.hosts.json");
-    }
 
     @Override
     public Agent createConfiguredAgent(Map<String, Object> properties) {
