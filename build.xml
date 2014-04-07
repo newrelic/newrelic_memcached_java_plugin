@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name="memcached" default="dist" basedir=".">
 
-    <property name="version" value="1.0.1" />
+    <property name="version" value="2.0.0" />
     <property name="filename" value="newrelic_memcached_plugin-${version}"/>
-    <property name="jarfile" value="${filename}.jar" />
+    <property name="jarfile" value="plugin.jar" />
     <property name="tarfile" value="${filename}.tar.gz" />
 
     <property name="build.dir" value="build" />
@@ -17,7 +17,7 @@
     <property name="conf.dir" value="config" />
     <property name="dist.dir" location="dist" />
 
-    <property name="sdk.jar" value="${lib.dir}/metrics_publish-1.2.1.jar" />
+    <property name="sdk.jar" value="${lib.dir}/metrics_publish-2.0.0.jar" />
     <property name="spymemcached.jar" value="${lib.dir}/spymemcached-2.9.1.jar" />
 
     <path id="classpath">
@@ -68,8 +68,8 @@
     <target name="dist" depends="jar" description="create a downloadable file">
         <mkdir dir="${build.tar.src.dir}" />
         <copy file="${conf.dir}/example_logging.properties" todir="${build.tar.src.dir}/config" />
-        <copy file="${conf.dir}/template_memcached.hosts.json" todir="${build.tar.src.dir}/config" />
-        <copy file="${conf.dir}/template_newrelic.properties" todir="${build.tar.src.dir}/config" />
+        <copy file="${conf.dir}/plugin.template.json" todir="${build.tar.src.dir}/config" />
+        <copy file="${conf.dir}/newrelic.template.json" todir="${build.tar.src.dir}/config" />
         <copy file="LICENSE" todir="${build.tar.src.dir}" />
         <copy file="README.md" todir="${build.tar.src.dir}" />
         <copy file="${build.jar.dir}/${jarfile}" todir="${build.tar.src.dir}" />

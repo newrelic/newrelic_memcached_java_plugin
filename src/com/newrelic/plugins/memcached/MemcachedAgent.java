@@ -6,7 +6,7 @@ import java.net.SocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.newrelic.metrics.publish.util.Logger;
 
 import net.spy.memcached.MemcachedClient;
 
@@ -14,10 +14,11 @@ import com.newrelic.metrics.publish.Agent;
 import com.newrelic.metrics.publish.binding.Context;
 import com.newrelic.metrics.publish.processors.EpochCounter;
 
+
 public class MemcachedAgent extends Agent {
 
     private static final String GUID = "com.newrelic.plugins.memcached";
-    private static final String VERSION = "1.0.1";
+    private static final String VERSION = "2.0.0";
 
     private String name;
     private String host;
@@ -47,7 +48,7 @@ public class MemcachedAgent extends Agent {
     private EpochCounter evictionsCounter;
     private EpochCounter reclaimsCounter;
 
-    final Logger logger; // Convenience variable for working with the logs
+    final Logger logger = Logger.getLogger(MemcachedAgent.class);
 
     public MemcachedAgent(String name, String host, Integer port) {
         super(GUID, VERSION);
@@ -80,8 +81,7 @@ public class MemcachedAgent extends Agent {
         this.evictionsCounter = new EpochCounter();
         this.reclaimsCounter = new EpochCounter();
 
-        logger = Context.getLogger(); // Set logging to current Context
-        logger.fine("Memcached Agent initialized: " + formatAgentParams(name, host, port));
+        logger.debug("Memcached Agent initialized: " + formatAgentParams(name, host, port));
     }
 
     @Override
@@ -91,11 +91,11 @@ public class MemcachedAgent extends Agent {
 
     @Override
     public void pollCycle() {
-        logger.fine("Gathering Memcached metrics. " + formatAgentParams(name, host, port));
+        logger.debug("Gathering Memcached metrics. " + formatAgentParams(name, host, port));
         Map<String, String> metrics = getMetricsFromMemcached();
 
         if(metrics.isEmpty()) {
-            logger.severe("Could not fetch metrics from Memcached server.");
+            logger.error("Could not fetch metrics from Memcached server.");
             return;
         }
 
@@ -188,13 +188,12 @@ public class MemcachedAgent extends Agent {
                 map = memcacheStats.get(key);
             }
         } catch(IOException e) {
-            logger.log(Level.SEVERE, "Error occured while trying to fetch metrics from the Memcached server at: " + host + ":" + port, e);
+            logger.error("Error occured while trying to fetch metrics from the Memcached server at: " + host + ":" + port, e);
             e.printStackTrace();
         } catch(IllegalStateException e) {
-            logger.log(Level.SEVERE, "Error occured while trying to fetch metrics from the Memcached server at: " + host + ":" + port, e);
+            logger.error("Error occured while trying to fetch metrics from the Memcached server at: " + host + ":" + port, e);
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if(client != null) {
                 client.shutdown();
             }
