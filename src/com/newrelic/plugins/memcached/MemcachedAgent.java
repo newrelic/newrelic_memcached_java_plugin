@@ -14,7 +14,6 @@ import com.newrelic.metrics.publish.Agent;
 import com.newrelic.metrics.publish.binding.Context;
 import com.newrelic.metrics.publish.processors.EpochCounter;
 
-
 public class MemcachedAgent extends Agent {
 
     private static final String GUID = "com.newrelic.plugins.memcached";
