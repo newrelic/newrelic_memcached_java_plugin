@@ -47,7 +47,7 @@ public class MemcachedAgent extends Agent {
     private EpochCounter evictionsCounter;
     private EpochCounter reclaimsCounter;
 
-    final Logger logger = Logger.getLogger(MemcachedAgent.class);
+    private static final Logger logger = Logger.getLogger(MemcachedAgent.class);
 
     public MemcachedAgent(String name, String host, Integer port) {
         super(GUID, VERSION);
