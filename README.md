@@ -10,7 +10,7 @@ Prerequisites
 Installation
 -------------
 
-The Memcached plugin can be [installed manually](#running-the-agent) or automatically with [Chef](http://www.getchef.com) and [Puppet](http://puppetlabs.com). For Chef and Puppet support see the New Relic plugin's [Chef Cookbook](http://community.opscode.com/cookbooks/newrelic_plugins) and [Puppet Module](https://forge.puppetlabs.com/newrelic/newrelic_plugins).
+The Memcached plugin can be [installed manually](#running-the-agent) or automatically with [Chef](http://www.getchef.com) and [Puppet](http://puppetlabs.com) or with the [New Relic Platform Installer](new-relic-platform-installer-beta). For Chef and Puppet support see the New Relic plugin's [Chef Cookbook](http://community.opscode.com/cookbooks/newrelic_plugins) and [Puppet Module](https://forge.puppetlabs.com/newrelic/newrelic_plugins).
 
 Additional information on using Chef and Puppet with New Relic is available in New Relic's [documentation](https://docs.newrelic.com/docs/plugins/plugin-installation-with-chef-and-puppet).
 
@@ -26,6 +26,15 @@ Running the Agent
 5. From your shell run: `java -jar plugin.jar`
 6. Wait a few minutes for New Relic to begin processing the data sent from your agent.
 6. Log into your New Relic account at [http://newrelic.com](http://newrelic.com) and click on `Memcached` on the left hand nav bar to start seeing your Memcached metrics
+
+## New Relic Platform Installer (Beta)
+
+The New Relic Platform Installer (NPI) is a simple, lightweight command line tool that helps you easily download, configure and manage New Relic Platform Plugins.  If you're interested in participating in our public beta, simply go to [our forum category](https://discuss.newrelic.com/category/platform-plugins/platform-installer-beta) and checkout the ['Getting Started' section](https://discuss.newrelic.com/t/getting-started-for-the-platform-installer-beta/842).  If you have any questions, concerns or feedback, please do not hesitate to reach out through the forums as we greatly appreciate your feedback!
+
+Once you've installed the NPI tool, run the following command:
+
+	./npi install com.newrelic.plugins.memcached
+
 
 Source Code
 -----------
