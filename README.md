@@ -1,6 +1,19 @@
 Memcached Java Plugin for New Relic
 ========================================
 
+What's new in V2?
+-----------------
+
+This plugin has been upgraded to V2 of the New Relic Platform Java SDK.  For version 2 of the Java SDK, we have made several changes to help make the installation experience more uniform for plugins.  The changes include:
+
+* 'newrelic.properties' file is now 'newrelic.json'
+* Plugin configuration is now done through the 'plugin.json' file
+* Logging has been made more robust and easier to use.
+* Jar distributables now have a well-defined name (i.e. plugin.jar)
+* Configuration files are now located in a well-defined location (i.e. './config' off the root)
+
+More information on these changes (including how to configure logging, license keys, and the plugin itself) can be found [here](https://github.com/newrelic-platform/metrics_publish_java/tree/serened/beta_branch_v2).  If you have any feedback, please don't hesitate to reach out to us through our forums [here](https://discuss.newrelic.com/category/platform-plugins/platform-sdk-beta).
+
 Prerequisites
 -------------
 - A New Relic account. Signup for a free account at [http://newrelic.com](http://newrelic.com)
@@ -10,7 +23,7 @@ Prerequisites
 Installation
 -------------
 
-The Memcached plugin can be [installed manually](#running-the-agent) or automatically with [Chef](http://www.getchef.com) and [Puppet](http://puppetlabs.com). For Chef and Puppet support see the New Relic plugin's [Chef Cookbook](http://community.opscode.com/cookbooks/newrelic_plugins) and [Puppet Module](https://forge.puppetlabs.com/newrelic/newrelic_plugins).
+The Memcached plugin can be [installed manually](#running-the-agent) or automatically with [Chef](http://www.getchef.com) and [Puppet](http://puppetlabs.com) or with the [New Relic Platform Installer](new-relic-platform-installer-beta). For Chef and Puppet support see the New Relic plugin's [Chef Cookbook](http://community.opscode.com/cookbooks/newrelic_plugins) and [Puppet Module](https://forge.puppetlabs.com/newrelic/newrelic_plugins).
 
 Additional information on using Chef and Puppet with New Relic is available in New Relic's [documentation](https://docs.newrelic.com/docs/plugins/plugin-installation-with-chef-and-puppet).
 
@@ -26,6 +39,15 @@ Running the Agent
 5. From your shell run: `java -jar plugin.jar`
 6. Wait a few minutes for New Relic to begin processing the data sent from your agent.
 6. Log into your New Relic account at [http://newrelic.com](http://newrelic.com) and click on `Memcached` on the left hand nav bar to start seeing your Memcached metrics
+
+## New Relic Platform Installer (Beta)
+
+The New Relic Platform Installer (NPI) is a simple, lightweight command line tool that helps you easily download, configure and manage New Relic Platform Plugins.  If you're interested in participating in our public beta, simply go to [our forum category](https://discuss.newrelic.com/category/platform-plugins/platform-installer-beta) and checkout the ['Getting Started' section](https://discuss.newrelic.com/t/getting-started-for-the-platform-installer-beta/842).  If you have any questions, concerns or feedback, please do not hesitate to reach out through the forums as we greatly appreciate your feedback!
+
+Once you've installed the NPI tool, run the following command:
+
+	./npi install com.newrelic.plugins.memcached
+
 
 Source Code
 -----------
