@@ -1,11 +1,8 @@
 # New Relic Platform Memcached Plugin - Java
 
-Find the New Relic Memcached plugin in the [New Relic storefront](http://http://newrelic.com/plugins/new-relic-inc/143)
+Find the New Relic Memcached plugin in the [New Relic storefront](http://newrelic.com/plugins/new-relic-inc/143)
 
 Find the New Relic Memcached plugin in [Plugin Central](https://rpm.newrelic.com/extensions/com.newrelic.plugins.memcached)
-
-----
-**Your New Relic Memcached plugin can be operational in just a few minutes when following these steps.**
 
 ----
 
@@ -118,7 +115,7 @@ Below is an example of the `plugin.json` file's contents, you can add multiple o
 {
   "agents": [
     {
-      "name" : "Localhost",
+      "name" : "Development Server",
       "host" : "localhost",
       "port" : 11211
     }
