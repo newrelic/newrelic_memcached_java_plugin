@@ -1,5 +1,11 @@
 ## New Relic Platform Memcached Plugin Change Log ##
 
+### v2.0.1 - May 5, 2014 ###
+
+** Bug Fixes **
+
+* Fixed bug where calculations resulted in NullPointerExceptions when metric values were not present.
+
 ### v2.0.0 - April 7, 2014 ###
 
 **Features**
