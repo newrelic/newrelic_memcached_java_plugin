@@ -17,7 +17,7 @@ import com.newrelic.metrics.publish.processors.EpochCounter;
 public class MemcachedAgent extends Agent {
 
     private static final String GUID = "com.newrelic.plugins.memcached";
-    private static final String VERSION = "2.0.0";
+    private static final String VERSION = "2.0.1";
 
     private String name;
     private String host;
@@ -156,7 +156,7 @@ public class MemcachedAgent extends Agent {
         // Item metrics
         Long currentItems = convertStringToLongWithoutException(metrics.get("curr_items"));
         reportMetric("Items/Count", "items", currentItems);
-        reportMetric("Items/AvgSize", "bytes", (currentItems != null && currentItems > 0) ? bytesUsed / currentItems : 0);
+        reportMetric("Items/AvgSize", "bytes", (bytesUsed != null && currentItems != null && currentItems > 0) ? bytesUsed / currentItems : 0);
         reportMetric("Items/Rate", "items/seconds", totalItemsCounter.process(convertStringToFloatWithoutException(metrics.get("total_items"))));
         reportMetric("Items/Actions/Evictions", "evictions/seconds", evictionsCounter.process(convertStringToFloatWithoutException(metrics.get("evictions"))));
         reportMetric("Items/Actions/Reclaims", "reclaims/seconds", reclaimsCounter.process(convertStringToFloatWithoutException(metrics.get("reclaimed"))));
