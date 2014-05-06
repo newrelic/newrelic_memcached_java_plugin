@@ -204,3 +204,7 @@ Plugin support and troubleshooting assistance can be obtained by visiting [suppo
 ## Fork me!
 
 The New Relic Platform uses an extensible architecture that allows you to define new metrics beyond the provided defaults. To expose more data about your Memcached servers, fork this repository, create a new GUID, add the metrics you would like to collect to the code and then build summary metrics and dashboards to expose your newly collected metrics.
+
+## Contributing
+
+You are welcome to send pull requests to us - however, by doing so you agree that you are granting New Relic a non-exclusive, non-revokable, no-cost license to use the code, algorithms, patents, and ideas in that code in our products if we so choose. You also agree the code is provided as-is and you provide no warranties as to its fitness or correctness for any purpose.
