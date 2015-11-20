@@ -59,7 +59,7 @@ Additional information on using Chef and Puppet with New Relic is available in N
 
 #### Step 1 - Downloading and Extracting the Plugin
 
-The latest version of the plugin can be downloaded [here](https://rpm.newrelic.com/extensions/com.newrelic.plugins.memcached).  Once the plugin is on your box, extract it to a location of your choosing.
+The latest version of the plugin can be downloaded [here](https://github.com/newrelic-platform/newrelic_memcached_java_plugin/releases).  Once the plugin is on your box, extract it to a location of your choosing.
 
 **note** - This plugin is distributed in tar.gz format and can be extracted with the following command on Unix-based systems (Windows users will need to download a third-party extraction tool or use the [New Relic Platform Installer](https://discuss.newrelic.com/t/getting-started-with-the-platform-installer/842)):
 
