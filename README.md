@@ -1,3 +1,5 @@
+[![Archived header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/Archived.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#archived)
+
 # New Relic Platform Memcached Plugin - Java
 
 Find the New Relic Memcached plugin in the [New Relic storefront](http://newrelic.com/plugins/new-relic-inc/143)
